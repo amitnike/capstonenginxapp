@@ -35,19 +35,19 @@ pipeline {
 			steps {
 				withAWS(region:'us-west-2', credentials:'ecr_credentials') {
 					sh '''
-						kubectl config use-context arn:aws:eks:us-west-2:647362336090:cluster/EKS-ZqPJMSLghEmq	
+						/home/ubuntu/bin/kubectl config use-context arn:aws:eks:us-west-2:647362336090:cluster/EKS-ZqPJMSLghEmq	
 					'''
 				}
 			}
 		}
 
-		stage('Deployment to nodes') {
+		stage('Deployment to AWS') {
 			steps {
 				withAWS(region:'us-west-2', credentials:'ecr_credentials') {
 					sh '''
-						kubectl apply -f capstone-app-deployment.yml
-						kubectl get nodes
-						kubectl get pods	
+						/home/ubuntu/bin/kubectl apply -f capstone-app-deployment.yml
+						/home/ubuntu/bin/kubectl get nodes
+						/home/ubuntu/bin/kubectl get pods	
 					'''
 				}
 			}

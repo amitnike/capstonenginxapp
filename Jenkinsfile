@@ -47,6 +47,7 @@ pipeline {
 			steps {
 				withAWS(region:'us-west-2', credentials:'ecr_credentials') {
 					sh '''
+						/home/ubuntu/bin/kubectl set image deployments/capstone-app capstone-app=${registry}:latest
 						/home/ubuntu/bin/kubectl apply -f capstone-app-deployment.yml
 						/home/ubuntu/bin/kubectl get nodes
 						/home/ubuntu/bin/kubectl get pods	

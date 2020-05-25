@@ -21,12 +21,34 @@ pipeline {
 			}
 		}
 
-		stage('Deploy Image') {
+		stage('Push Image to HUB') {
 			steps{
 				script {
 					docker.withRegistry( '', registryCredential ) {
 					dockerImage.push()
 				}
+				}
+			}
+		}
+
+		stage('Set current kubectl context') {
+			steps {
+				withAWS(region:'us-west-2', credentials:'ecr_credentials') {
+					sh '''
+						kubectl config use-context arn:aws:eks:us-west-2:647362336090:cluster/EKS-ZqPJMSLghEmq	
+					'''
+				}
+			}
+		}
+
+		stage('Deployment to nodes') {
+			steps {
+				withAWS(region:'us-west-2', credentials:'ecr_credentials') {
+					sh '''
+						kubectl apply -f capstone-app-deployment.yml
+						kubectl get nodes
+						kubectl get pods	
+					'''
 				}
 			}
 		}

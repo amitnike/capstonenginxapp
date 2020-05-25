@@ -21,7 +21,7 @@ spec:
         app: capstone-app
     spec:
       containers:
-      - image: amitnike/nginxhello:latest
+      - image: amitnike/nginxhello
         imagePullPolicy: Always
         name: capstone-app
         ports:

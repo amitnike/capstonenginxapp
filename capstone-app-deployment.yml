@@ -5,30 +5,29 @@ metadata:
   namespace: default
 spec:
   replicas: 3
+  strategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 25%
+  selector:
+    matchLabels:
+      app: capstone-app
   template:
     metadata:
       labels:
         app: capstone-app
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 25%
-  selector:
-    matchLabels:
-      app: capstone-app
-
-  spec:
-    containers:
-    - image: amitnike/nginxhello:latest
-      imagePullPolicy: Always
-      name: capstone-app
-      ports:
-      - containerPort: 8080
-      readinessProbe:
-        httpGet:
-            path: /
-            port: 8080
-            initialDelaySeconds: 5
-            periodSeconds: 5
-            successThreshold: 1
+    spec:
+      containers:
+      - image: amitnike/nginxhello:latest
+        imagePullPolicy: Always
+        name: capstone-app
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          httpGet:
+              path: /
+              port: 8080
+              initialDelaySeconds: 5
+              periodSeconds: 5
+              successThreshold: 1

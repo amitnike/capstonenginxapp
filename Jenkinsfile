@@ -44,17 +44,52 @@ pipeline {
 			}
 		}
 
-		stage('Deployment to AWS') {
+		stage('Deploy blue container') {
 			steps {
 				withAWS(region:'us-west-2', credentials:'ecr_credentials') {
 					sh '''
-						/home/ubuntu/bin/kubectl apply -f capstone-app-deployment.yml
-						/home/ubuntu/bin/kubectl get nodes
-						/home/ubuntu/bin/kubectl get pods	
+						kubectl apply -f ./blue-controller.json
+					'''
+				}
+			}
+		}
+
+		stage('Deploy green container') {
+			steps {
+				withAWS(region:'us-west-2', credentials:'ecr_credentials') {
+					sh '''
+						kubectl apply -f ./green-controller.json
+					'''
+				}
+			}
+		}
+
+		stage('Create the service in the cluster to redirect to blue') {
+			steps {
+				withAWS(region:'us-west-2', credentials:'ecr_credentials') {
+					sh '''
+						kubectl apply -f ./blue-service.json
+					'''
+				}
+			}
+		}
+
+		stage('Wait user approve') {
+            steps {
+                input "Ready to redirect traffic to green?"
+            }
+        }
+
+		stage('Create the service in the cluster to redirect to green') {
+			steps {
+				withAWS(region:'us-west-2', credentials:'ecr_credentials') {
+					sh '''
+						kubectl apply -f ./green-service.json
 					'''
 				}
 			}
 		}
 
 	}
+
 }

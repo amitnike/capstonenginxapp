@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: capstone-app
   namespace: default
-spec:
+deployment: 
   replicas: 3
   strategy:
   type: RollingUpdate

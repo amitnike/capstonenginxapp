@@ -28,3 +28,11 @@ Step 4: Build your pipeline
       
 Step 5: Test your pipeline
     The resuls of AWS Infra as well as jenkins pipeline are in Images folder
+    
+# Manual activies performed -:
+Update to create-workernodes.sh file with EKS ID and security group
+Update to aws-auth-cm.yaml file with ARN of Node group Instance role
+Set auto assign IPV4 settings to true for newly created subnets in new VPC
+Jenkins instance to have docker usergroup configurations
+Update security group of worker nodes to allow traffic from Load balancer security group
+

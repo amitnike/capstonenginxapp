@@ -1,0 +1,1 @@
+aws cloudformation create-stack --stack-name udacity-capstone-nodegroup --template-body file://amazon-eks-nodegroup.yml --parameters file://params.json --capabilities "CAPABILITY_IAM" "CAPABILITY_NAMED_IAM"

@@ -1,0 +1,27 @@
+Description: >
+    Capstone project for Udacity Cloud DevOps Engineering Nanodegree
+    Create an EKS cluster
+Parameters:
+  EnvironmentName:
+    Description: An Environment name that will be prefixed to resources
+    Type: String
+Resources:
+  EKS:
+    Type: AWS::EKS::Cluster
+    Properties: 
+      RoleArn: arn:aws:iam::647362336090:role/eksClusterRole
+      ResourcesVpcConfig:
+        SecurityGroupIds:
+        - Fn::ImportValue:
+            !Sub "${EnvironmentName}-SCG"
+        SubnetIds:
+            Fn::Split:
+                - ","
+                - Fn::ImportValue:
+                      Fn::Sub: ${EnvironmentName}-SBN-IDS
+Outputs:
+  EksId:
+    Description: The EKS id.
+    Value: !Ref EKS
+    Export: 
+        Name: !Sub ${EnvironmentName}-EKS

@@ -5,6 +5,9 @@ metadata:
   namespace: default
 spec:
   replicas: 3
+  selector:
+    matchLabels:
+      app: capstone-app
   template:
     metadata:
       labels:

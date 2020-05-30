@@ -139,7 +139,7 @@ Resources:
           "Fn::Sub": |
             #!/bin/bash
             set -o xtrace
-            /etc/eks/bootstrap.sh EKS-ZqPJMSLghEmq
+            /etc/eks/bootstrap.sh EKS-CXFL470QkkLM
             /opt/aws/bin/cfn-signal --exit-code $? \
                      --stack  ${AWS::StackName} \
                      --resource NodeGroup  \

@@ -13,6 +13,17 @@ pipeline {
 			}
 		}
 
+		stage('docker setup') {
+			steps {
+				sh '''
+					sudo groupadd docker
+					sudo usermod -aG docker $USER
+					sudo chmod 777 /var/run/docker.sock
+				'''
+			}
+		}
+		
+
 		stage('Build Docker Image') {
 			steps {
 				script{

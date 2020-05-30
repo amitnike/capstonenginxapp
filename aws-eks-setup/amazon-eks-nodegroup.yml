@@ -67,7 +67,7 @@ Resources:
     Properties:
       Description: Allow pods to communicate with the cluster API Server
       FromPort: 443
-      GroupId: sg-0ebd261c7751510b4
+      GroupId: sg-09bd9061ff7b5bcd1
       IpProtocol: tcp
       SourceSecurityGroupId: !Ref NodeSecurityGroup
       ToPort: 443
@@ -79,7 +79,7 @@ Resources:
       Description: Allow the cluster control plane to communicate with worker Kubelet and pods
       DestinationSecurityGroupId: !Ref NodeSecurityGroup
       FromPort: 1025
-      GroupId: sg-0ebd261c7751510b4
+      GroupId: sg-09bd9061ff7b5bcd1
       IpProtocol: tcp
       ToPort: 65535
 
@@ -90,7 +90,7 @@ Resources:
       Description: Allow the cluster control plane to communicate with pods running extension API servers on port 443
       DestinationSecurityGroupId: !Ref NodeSecurityGroup
       FromPort: 443
-      GroupId: sg-0ebd261c7751510b4
+      GroupId: sg-09bd9061ff7b5bcd1
       IpProtocol: tcp
       ToPort: 443
 
@@ -102,7 +102,7 @@ Resources:
       FromPort: 1025
       GroupId: !Ref NodeSecurityGroup
       IpProtocol: tcp
-      SourceSecurityGroupId: sg-0ebd261c7751510b4
+      SourceSecurityGroupId: sg-09bd9061ff7b5bcd1
       ToPort: 65535
 
   NodeSecurityGroupFromControlPlaneOn443Ingress:
@@ -113,7 +113,7 @@ Resources:
       FromPort: 443
       GroupId: !Ref NodeSecurityGroup
       IpProtocol: tcp
-      SourceSecurityGroupId: sg-0ebd261c7751510b4
+      SourceSecurityGroupId: sg-09bd9061ff7b5bcd1
       ToPort: 443
 
 
@@ -130,7 +130,7 @@ Resources:
         IamInstanceProfile:
           Arn: !GetAtt NodeInstanceProfile.Arn
         ImageId: ami-0809659d79ce80260
-        InstanceType: t2.medium
+        InstanceType: t2.micro
         KeyName: capstone-jenkins-ec2
         SecurityGroupIds: 
         - Ref: NodeSecurityGroup

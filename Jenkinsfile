@@ -35,9 +35,9 @@ pipeline {
 			steps {
 				withAWS(region:'us-west-2', credentials:'ecr_credentials') {
 					sh '''
-						aws eks update-kubeconfig --name EKS-ZqPJMSLghEmq
+						aws eks update-kubeconfig --name EKS-CXFL470QkkLM
 						/home/ubuntu/bin/kubectl apply -f aws-auth-cm.yaml
-						/home/ubuntu/bin/kubectl config use-context arn:aws:eks:us-west-2:647362336090:cluster/EKS-ZqPJMSLghEmq	
+						/home/ubuntu/bin/kubectl config use-context arn:aws:eks:us-west-2:647362336090:cluster/EKS-CXFL470QkkLM
 					'''
 				}
 			}
